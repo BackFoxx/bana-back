@@ -1,0 +1,31 @@
+### 메뉴 조회하기
+GET {{baseURL}}/api/v1/menus
+Content-Type: application/json
+
+### 메뉴 저장하기
+POST {{baseURL}}/api/v1/menus
+Content-Type: application/json
+
+{
+  "title": "연유라떼"
+}
+
+### 자동완성
+GET {{baseURL}}/api/v1/menus/keywords/search?keyword=레
+Content-Type: application/json
+
+### 자동완성 키워드 찾기
+GET {{baseURL}}/api/v1/menus/1/keywords
+Content-Type: application/json
+
+### 메뉴 키워드 저장하기
+POST {{baseURL}}/api/v1/menus/1/keywords
+Content-Type: application/json
+
+{
+  "keyword": "연유라떼"
+}
+
+### 메뉴 삭제하기
+DELETE {{baseURL}}/api/v1/menus/3
+Content-Type: application/json

@@ -1,0 +1,29 @@
+### GET articles
+GET {{baseURL}}/api/v1/articles
+Content-Type: application/json
+
+### GET article
+GET {{baseURL}}/api/v1/articles/1
+Content-Type: application/json
+
+### SAVE article
+POST {{baseURL}}/api/v1/articles
+Content-Type: application/json
+
+{
+  "title": "Test Article",
+  "body": "This is Body"
+}
+
+### DELETE article
+DELETE {{baseURL}}/api/v1/articles/1
+Content-Type: application/json
+
+### UPDATE article
+PUT {{baseURL}}/api/v1/articles/4
+Content-Type: application/json
+
+{
+  "title": "Updated title",
+  "body": "fuck you"
+}

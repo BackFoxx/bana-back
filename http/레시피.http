@@ -1,0 +1,21 @@
+### 레시피 아이템 저장하기
+POST {{baseURL}}/api/v1/recipes
+Content-Type: application/json
+
+{
+  "title": "샷"
+}
+
+### 메뉴에 레시피 등록하기
+POST {{baseURL}}/api/v1/menus/1/recipes
+Content-Type: application/json
+
+{
+  "itemId": 4,
+  "amount": "B",
+  "temperature": "ICE"
+}
+
+### 메뉴에 등록된 레시피 가져오기
+GET {{baseURL}}/api/v1/menus/1/recipes?temperature=ICE
+Content-Type: application/json

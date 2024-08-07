@@ -1,0 +1,69 @@
+module Api
+  module V1
+    class MenuController < ApplicationController
+      def get_menus
+        menus = Menu.all
+        render json: menus, status: :ok
+      end
+
+      def get_keywords
+        menus = Menu.find(params[:menuId])
+        render json: menus.menu_keywords, status: :ok
+      end
+
+      def delete_keyword
+        MenuKeyword.find(params[:keywordId]).destroy
+        render status: :no_content
+      end
+
+      def save_menu
+        param = params.permit(:title, :image)
+        menu = Menu.new(param)
+        if menu.save
+          render json: menu, status: :ok
+        else
+          render json: {
+            message: '메뉴 저장에 실패했습니다.',
+            data: menu.errors
+          }, status: :unprocessable_entity
+        end
+      end
+
+      def save_menu_keyword
+        param = params.permit(:keyword)
+        menu = Menu.find(params[:menuId])
+        keyword = menu.menu_keywords.create(keyword: param[:keyword])
+
+        if keyword.persisted?
+          render json: keyword, status: :ok
+        else
+          render json: {
+            data: keyword.errors
+          }, status: :bad_request
+        end
+      end
+
+      def auto_search
+        keyword = params[:keyword]
+        menus = Menu.joins(:menu_keywords)
+                    .where('menu_keywords.keyword LIKE ?', "#{keyword}%")
+                    .distinct
+
+        found_menus = menus.map do |menu|
+          {
+            id: menu.id,
+            title: menu.title,
+          }
+        end
+
+        render json: found_menus
+      end
+
+      def delete_menu
+        Menu.find(params[:menuId]).destroy
+        render status: :no_content
+      end
+    end
+  end
+end
+

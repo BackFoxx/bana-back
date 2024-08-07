@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  bana-db:
+    container_name: my-bana-db
+    command: --default-authentication-plugin=mysql_native_password
+    platform: linux/amd64
+    image: mysql:8.0
+    ports:
+      - "3305:3306"
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: bana
+      TZ: Asia/Seoul

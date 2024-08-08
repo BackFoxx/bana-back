@@ -19,14 +19,17 @@ module Api
       def save_menu
         param = params.permit(:title, :image)
         menu = Menu.new(param)
-        if menu.save
-          render json: menu, status: :ok
-        else
+
+        if !menu.save
           render json: {
             message: '메뉴 저장에 실패했습니다.',
             data: menu.errors
           }, status: :unprocessable_entity
         end
+
+        menu.menu_keywords.create(keyword: menu.title)
+
+        render json: menu, status: :ok
       end
 
       def save_menu_keyword

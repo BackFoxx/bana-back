@@ -6,13 +6,13 @@ module Api
         if recipe_item.save
           render json: recipe_item, status: :ok
         else
-          render json: recipe_item.errors, status: :unprocessable_entity
+          render json: recipe_item.errors, status: :internal_server_error
         end
       end
 
       def save_menu_recipe
         menu = Menu.find(params[:menuId])
-        item = MenuRecipeItem.find(params[:itemId])
+        item = MenuRecipeItem.find_or_create_by(:title => params[:name])
 
         menu_recipe = menu.menu_recipes
                           .create({
@@ -20,22 +20,28 @@ module Api
                                     :item_id => item.id,
                                     :amount => params[:amount],
                                     :order => menu.menu_recipes.length,
-                                    :temperature => params[:temperature]
+                                    :temperature => "ICE"
                                   })
 
         if menu_recipe.save
-          render json: menu_recipe, status: :ok
+          render json: {
+            :id => menu_recipe.id,
+            :name => item.title,
+            :order => menu_recipe.order,
+            :amount => menu_recipe.amount,
+            :image => item.image
+          }, status: :ok
         else
-          render json: menu_recipe.errors, status: :unprocessable_entity
+          render json: menu_recipe.errors, status: :iternal_server_error
         end
       end
 
       def update_menu_recipes
         params[:items].each do |item|
           MenuRecipe.update(item[:id], {
-                                  :order => item[:order],
-                                  :amount => item[:amount]
-                                })
+            :order => item[:order],
+            :amount => item[:amount]
+          })
         end
 
         render status: :no_content
@@ -52,7 +58,7 @@ module Api
         |recipe|
           recipe_item = MenuRecipeItem.find(recipe.item_id)
           {
-            :id => recipe_item.id,
+            :id => recipe.id,
             :name => recipe_item.title,
             :order => recipe.order,
             :amount => recipe.amount,
@@ -62,7 +68,21 @@ module Api
         render json: items, status: :ok
       end
 
-      private
+      def get_recipe_names
+        item_names = MenuRecipeItem
+                      .where('title LIKE :prefix', prefix: "#{params[:keyword]}%")
+                      .pluck(:title)
+        render json: item_names, status: :ok
+      end
+
+      def delete_recipe
+        destroy = MenuRecipe.destroy(params[:recipeId])
+        if destroy
+          render status: :no_content
+        else
+          render status: :internal_server_error
+        end
+      end
     end
   end
 end

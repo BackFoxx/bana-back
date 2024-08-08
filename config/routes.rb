@@ -16,10 +16,12 @@ Rails.application.routes.draw do
       delete '/keywords/:keywordId', to: 'menu#delete_keyword'
       post '/menus/:menuId/keywords', to: 'menu#save_menu_keyword'
 
+      get '/recipes/names', to: 'menu_recipe#get_recipe_names'
       post '/recipes', to: 'menu_recipe#save_recipe_item'
       post '/menus/:menuId/recipes', to: 'menu_recipe#save_menu_recipe'
       get '/menus/:menuId/recipes', to: 'menu_recipe#get_menu_items'
       patch '/menus/:menuId/recipes', to: 'menu_recipe#update_menu_recipes'
+      delete '/menus/recipes/:recipeId', to: 'menu_recipe#delete_recipe'
     end
   end
 

@@ -30,6 +30,17 @@ module Api
         end
       end
 
+      def update_menu_recipes
+        params[:items].each do |item|
+          MenuRecipe.update(item[:id], {
+                                  :order => item[:order],
+                                  :amount => item[:amount]
+                                })
+        end
+
+        render status: :no_content
+      end
+
       def get_menu_items
         menu = Menu.find(params[:menuId])
         items = menu.menu_recipes
@@ -50,6 +61,8 @@ module Api
         end.sort_by { |item| item[:order] }
         render json: items, status: :ok
       end
+
+      private
     end
   end
 end

@@ -112,7 +112,6 @@ GEM
     minitest (5.24.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
-    mysql2 (0.5.6)
     net-imap (0.4.14)
       date
       net-protocol
@@ -182,6 +181,12 @@ GEM
       psych (>= 4.0.0)
     reline (0.5.9)
       io-console (~> 0.5)
+    sqlite3 (2.0.3-aarch64-linux-gnu)
+    sqlite3 (2.0.3-arm-linux-gnu)
+    sqlite3 (2.0.3-arm64-darwin)
+    sqlite3 (2.0.3-x86-linux-gnu)
+    sqlite3 (2.0.3-x86_64-darwin)
+    sqlite3 (2.0.3-x86_64-linux-gnu)
     stringio (3.1.1)
     thor (1.3.1)
     timeout (0.4.1)
@@ -205,9 +210,9 @@ DEPENDENCIES
   bootsnap
   debug
   faker
-  mysql2
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.4)
+  sqlite3
   tzinfo-data
 
 RUBY VERSION

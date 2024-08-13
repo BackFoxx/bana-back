@@ -1,3 +1,5 @@
+#!/bin/bash
+
 git pull
 
 RAILS_MASTER_KEY=$(aws ssm get-parameter --name /bana/back/RAILS_MASTER_KEY --query Parameter.Value --output text)

@@ -19,7 +19,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install -y build-essential && \
+    apt-get install -y libmariadbd-dev && \
     apt-get install -y default-libmysqlclient-dev && \
     apt-get install --no-install-recommends -y build-essential git libvips pkg-config
 

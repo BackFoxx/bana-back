@@ -20,7 +20,7 @@ module Api
                                     :item_id => item.id,
                                     :amount => params[:amount],
                                     :order => menu.menu_recipes.length,
-                                    :temperature => "ICE"
+                                    :temperature => params[:temperature]
                                   })
 
         if menu_recipe.save
@@ -49,12 +49,10 @@ module Api
 
       def get_menu_items
         menu = Menu.find(params[:menuId])
-        items = menu.menu_recipes
-                    .filter do
-        |recipe|
-          recipe.temperature = params[:temperature]
-        end
-                    .map do
+
+        items = menu
+                  .menu_recipes.where(temperature: params[:temperature])
+                  .map do
         |recipe|
           recipe_item = MenuRecipeItem.find(recipe.item_id)
           {
@@ -62,16 +60,22 @@ module Api
             :name => recipe_item.title,
             :order => recipe.order,
             :amount => recipe.amount,
+            :temperature => recipe.temperature,
             :image => recipe_item.image
           }
         end.sort_by { |item| item[:order] }
+
+        if params[:count].to_s.downcase == "true"
+          menu.update(:search_count => menu.search_count + 1)
+        end
+
         render json: items, status: :ok
       end
 
       def get_recipe_names
         item_names = MenuRecipeItem
-                      .where('title LIKE :prefix', prefix: "#{params[:keyword]}%")
-                      .pluck(:title)
+                       .where('title LIKE :prefix', prefix: "#{params[:keyword]}%")
+                       .pluck(:title)
         render json: item_names, status: :ok
       end
 

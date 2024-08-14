@@ -66,6 +66,12 @@ module Api
         Menu.find(params[:menuId]).destroy
         render status: :no_content
       end
+
+      def get_menu_order_by_search_count
+        render json: Menu.order(search_count: :desc)
+            .limit(5), status: :ok
+      end
+
     end
   end
 end

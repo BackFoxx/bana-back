@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       get '/menus', to: 'menu#get_menus'
+      get '/menus/search_count', to: 'menu#get_menu_order_by_search_count'
       post '/menus', to: 'menu#save_menu'
       delete '/menus/:menuId', to: 'menu#delete_menu'
 

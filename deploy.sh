@@ -3,10 +3,10 @@
 git pull
 
 RAILS_MASTER_KEY=$(aws ssm get-parameter --name /bana/back/RAILS_MASTER_KEY --query Parameter.Value --output text)
-DB_DATABASE=$(aws ssm get-parameter --name /bana/back/DB_DATABASE --query Parameter.Value --output text)
-DB_USERNAME=$(aws ssm get-parameter --name /bana/back/DB_USERNAME --query Parameter.Value --output text)
-DB_PASSWORD=$(aws ssm get-parameter --name /bana/back/DB_PASSWORD --query Parameter.Value --output text)
-DB_HOST=$(aws ssm get-parameter --name /bana/back/DB_HOST --query Parameter.Value --output text)
+export DB_DATABASE=$(aws ssm get-parameter --name /bana/back/DB_DATABASE --query Parameter.Value --output text)
+export DB_USERNAME=$(aws ssm get-parameter --name /bana/back/DB_USERNAME --query Parameter.Value --output text)
+export DB_PASSWORD=$(aws ssm get-parameter --name /bana/back/DB_PASSWORD --query Parameter.Value --output text)
+export DB_HOST=$(aws ssm get-parameter --name /bana/back/DB_HOST --query Parameter.Value --output text)
 
 sudo docker build . -t bana-back
 

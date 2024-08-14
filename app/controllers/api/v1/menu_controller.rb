@@ -67,6 +67,12 @@ module Api
         render status: :no_content
       end
 
+      def update_menu_image
+        menu = Menu.find(params[:menuId])
+        menu.update(image: params[:image])
+        render status: :ok
+      end
+
       def get_menu_order_by_search_count
         render json: Menu.order(search_count: :desc)
             .limit(5), status: :ok

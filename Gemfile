@@ -45,3 +45,6 @@ group :development do
   gem 'faker'
 end
 
+gem "aws-sdk-s3", "~> 1.157"
+
+gem "dotenv-rails", "~> 3.1"

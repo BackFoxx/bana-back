@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get '/menus', to: 'menu#get_menus'
       get '/menus/search_count', to: 'menu#get_menu_order_by_search_count'
       post '/menus', to: 'menu#save_menu'
+      patch '/menus/:menuId/image', to: 'menu#update_menu_image'
       delete '/menus/:menuId', to: 'menu#delete_menu'
 
       get '/menus/keywords/search', to: 'menu#auto_search'
@@ -23,6 +24,8 @@ Rails.application.routes.draw do
       get '/menus/:menuId/recipes', to: 'menu_recipe#get_menu_items'
       patch '/menus/:menuId/recipes', to: 'menu_recipe#update_menu_recipes'
       delete '/menus/recipes/:recipeId', to: 'menu_recipe#delete_recipe'
+
+      post '/files', to: 'upload#upload'
     end
   end
 

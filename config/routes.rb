@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post '/menus/:menuId/keywords', to: 'menu#save_menu_keyword'
 
       get '/recipes/names', to: 'menu_recipe#get_recipe_names'
+      get '/recipes/amounts', to: 'menu_recipe#get_recipe_amounts'
       post '/recipes', to: 'menu_recipe#save_recipe_item'
       post '/menus/:menuId/recipes', to: 'menu_recipe#save_menu_recipe'
       get '/menus/:menuId/recipes', to: 'menu_recipe#get_menu_items'
@@ -26,6 +27,8 @@ Rails.application.routes.draw do
       delete '/menus/recipes/:recipeId', to: 'menu_recipe#delete_recipe'
 
       post '/files', to: 'upload#upload'
+
+      get '/quiz/problem', to: 'quiz#get_menu_problem'
     end
   end
 

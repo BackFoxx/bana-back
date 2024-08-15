@@ -77,6 +77,14 @@ module Api
                        .where('title LIKE :prefix', prefix: "#{params[:keyword]}%")
                        .pluck(:title)
         render json: item_names, status: :ok
+        end
+
+      def get_recipe_amounts
+        item_names = MenuRecipe
+                       .where('amount LIKE :prefix', prefix: "#{params[:amount]}%")
+                       .distinct(:amount)
+                       .pluck(:amount)
+        render json: item_names, status: :ok
       end
 
       def delete_recipe

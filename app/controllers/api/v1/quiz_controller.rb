@@ -3,7 +3,9 @@ module Api
     class QuizController < ApplicationController
       def get_menu_problem
         menu = Menu.find(Menu.pluck(:id).sample)
-        temperature = %w[ICE HOT].sample
+
+        menu.menu_recipes.pluck(:temperature).sample
+        temperature = menu.menu_recipes.pluck(:temperature).sample
 
         items = menu.menu_recipes.joins(:menu_recipe_item)
                     .select(

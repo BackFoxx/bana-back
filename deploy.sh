@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git pull && \
+git pull
 
 export RAILS_MASTER_KEY=$(aws ssm get-parameter --name /bana/back/RAILS_MASTER_KEY --query Parameter.Value --output text) && \
 export DB_DATABASE=$(aws ssm get-parameter --name /bana/back/DB_DATABASE --query Parameter.Value --output text) && \
@@ -9,11 +9,11 @@ export DB_PASSWORD=$(aws ssm get-parameter --name /bana/back/DB_PASSWORD --query
 export DB_HOST=$(aws ssm get-parameter --name /bana/back/DB_HOST --query Parameter.Value --output text) && \
 export ACCESS_KEY=$(aws ssm get-parameter --name /bana/back/ACCESS_KEY --query Parameter.Value --output text) && \
 export SECRET_ACCESS_KEY=$(aws ssm get-parameter --name /bana/back/SECRET_ACCESS_KEY --query Parameter.Value --output text) && \
-export S3_BUCKET=$(aws ssm get-parameter --name /bana/back/S3_BUCKET --query Parameter.Value --output text) && \
+export S3_BUCKET=$(aws ssm get-parameter --name /bana/back/S3_BUCKET --query Parameter.Value --output text)
 
-sudo docker build . -t bana-back && \
+sudo docker build . -t bana-back
 
-sudo docker container remove -f bana-back && \
+sudo docker container remove -f bana-back
 
 sudo docker run -d --rm -p 3000:3000 --name bana-back \
  -e RAILS_MASTER_KEY=${RAILS_MASTER_KEY} \

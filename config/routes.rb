@@ -29,6 +29,11 @@ Rails.application.routes.draw do
       post '/files', to: 'upload#upload'
 
       get '/quiz/problem', to: 'quiz#get_menu_problem'
+
+      get '/groups', to: 'group#get_groups'
+      get '/groups/:groupId/menus', to: 'group#get_menus_in_group'
+      post '/groups/:groupId/menus', to: 'group#save_menu_in_group'
+      post '/groups', to: 'group#save_group'
     end
   end
 
